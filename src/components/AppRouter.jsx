@@ -12,7 +12,7 @@ import BlogPage from "./BlogPage.jsx";
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path={'/chosen_box/'} element={<Layout/>}>
+      <Route path={'/'} element={<Layout/>}>
         <Route index element={<Main/>}/>
         <Route path={'black'} element={<BlackBox/>}/>
         <Route path={'white'} element={<WhiteBox/>}/>
