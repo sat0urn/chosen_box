@@ -5,7 +5,7 @@ import AppRouter from "./components/AppRouter.jsx"
 
 const App = () => {
   return (
-    <BrowserRouter basename={"/chosen_box"}>
+    <BrowserRouter>
       <Header />
       <AppRouter />
       <Footer />
