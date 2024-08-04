@@ -1,0 +1,35 @@
+body {
+    font-family: PT sans, sans-serif;
+}
+
+/* remove input number incrementation */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.document-pdf-component::-webkit-scrollbar {
+    width: 1px;
+}
+
+/* custom scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #E9ECEF;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
