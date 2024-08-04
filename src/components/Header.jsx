@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 
 const Header = () => {
-  const base_link = "/chosen_box/"
 
   return (
     <>
@@ -28,29 +27,29 @@ const Header = () => {
             <i className="fa-solid fa-ellipsis-vertical"></i>
             <ul className="navbar-nav px-5">
               <li className="nav-item">
-                <Link to={base_link + 'export'} className={"nav-link"}>
+                <Link to={'/export'} className={"nav-link"}>
                   EXPORT
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={base_link + 'survey'} className="nav-link">
+                <Link to={'/survey'} className="nav-link">
                   SURVEY
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={base_link} className="navbar-brand nav-link mx-2">
+                <Link to={'/'} className="navbar-brand nav-link mx-2">
                   <span className={"fw-bolder"} style={{textShadow: '1.5px 1.5px gray'}}>
                     TALOS
                   </span>
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={base_link + 'blog'} className={"nav-link"}>
+                <Link to={'/blog'} className={"nav-link"}>
                   BLOGS
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={base_link + 'profile'} className={"nav-link"}>
+                <Link to={'/profile'} className={"nav-link"}>
                   PROFILE&nbsp;
                 </Link>
               </li>

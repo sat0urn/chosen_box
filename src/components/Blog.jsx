@@ -3,8 +3,6 @@ import {Blogs} from "../data/blogs.js";
 
 const Blog = () => {
 
-  const base_link = "/chosen_box/"
-
   return (
     <>
       <svg
@@ -22,7 +20,7 @@ const Blog = () => {
               <div key={index}>
                 <div className="row w-75 mx-auto mb-5 g-0">
                   <div className="col-md-4">
-                    <Link to={base_link + 'blog/' + blog.link}>
+                    <Link to={'/blog/' + blog.link}>
                       <img
                         className={"img-fluid border border-light-subtle rounded-3 position-relative"}
                         src={blog.image}
@@ -38,7 +36,7 @@ const Blog = () => {
                         <div className="d-flex h-100 align-items-start flex-column">
                           <div className={""}>
                             <h4 className="fw-bold">
-                              <Link to={base_link + 'blog/' + blog.link} className={"nav-link"}>
+                              <Link to={'/blog/' + blog.link} className={"nav-link"}>
                                 {blog.title}
                               </Link>
                             </h4>

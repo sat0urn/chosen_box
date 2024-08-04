@@ -3,8 +3,6 @@ import {useNavigate} from "react-router-dom";
 
 const Main = () => {
 
-  const base_link = "/chosen_box/"
-
   const [isLeftHovered, setIsLeftHovered] = useState(false);
   const [isRightHovered, setIsRightHovered] = useState(false);
 
@@ -28,7 +26,7 @@ const Main = () => {
             onMouseEnter={() => setIsLeftHovered(true)}
             onMouseLeave={() => setIsLeftHovered(false)}
             className={`bg-black ${isLeftHovered && 'bg-dark bg-opacity-75'}`}
-            onClick={() => navigate(base_link + 'black')}
+            onClick={() => navigate('/black')}
           >
             <div className={"d-flex h-100 justify-content-center align-items-center"}>
               <h1 className={"text-white fw-bold m-0"} style={{textShadow: '2px 3px gray'}}>
@@ -40,7 +38,7 @@ const Main = () => {
             onMouseEnter={() => setIsRightHovered(true)}
             onMouseLeave={() => setIsRightHovered(false)}
             className={`bg-white ${isRightHovered && 'bg-dark-subtle'}`}
-            onClick={() => navigate(base_link + 'white')}
+            onClick={() => navigate('/white')}
           >
             <div className={"d-flex h-100 justify-content-center align-items-center"}>
               <h1 className={"text-black fw-bold m-0"} style={{textShadow: '2px 3px gray'}}>
