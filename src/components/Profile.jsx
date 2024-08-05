@@ -1,7 +1,8 @@
 import ProfileTopImg from '../assets/profile_top_img.png'
 import ProfileMiddleImg from '../assets/profile_middle_img.png'
 import ProfileBottomImg from '../assets/profile_bottom_img.png'
-import ProfileBG_1 from '../assets/bg_profile.avif'
+import ProfileBG_0 from '../assets/bg_profile_0.jpg'
+import ProfileBG_1 from '../assets/bg_profile_1.avif'
 import ProfileBG_2 from '../assets/bg_profile_2.avif'
 import ProfileBG_3 from '../assets/bg_profile_3.avif'
 import ProfileBG_4 from '../assets/bg_profile_4.avif'
@@ -12,6 +13,7 @@ const Profile = () => {
   const [bgCount, setBgCount] = useState(0)
 
   const backgrounds = [
+    ProfileBG_0,
     ProfileBG_1,
     ProfileBG_2,
     ProfileBG_3,
@@ -23,7 +25,7 @@ const Profile = () => {
       <div className={"container m-auto w-100"}>
         <div
           onClick={() => setBgCount((prev) => {
-            return prev + 1 === 4 ? 0 : prev + 1
+            return prev + 1 === backgrounds.length ? 0 : prev + 1
           })}
           className={"d-flex flex-column border border-1 p-4 bg-white shadow-lg"}
           style={{
