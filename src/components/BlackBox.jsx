@@ -39,7 +39,7 @@ const BlackBox = observer(() => {
 
   return (
     <>
-      <div className={"bg-black"}>
+      <div className={"bg-black mt-5"}>
         <div className={"container min-vh-100 pt-5 bg-light"}>
           <div className={"d-flex justify-content-center"}>
             <div className={"border border-2 border-black w-50 py-3 px-2"}>

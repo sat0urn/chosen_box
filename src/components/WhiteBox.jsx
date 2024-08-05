@@ -39,7 +39,7 @@ const WhiteBox = observer(() => {
 
   return (
     <>
-      <div className={"bg-light"}>
+      <div className={"bg-light mt-5"}>
         <div className={"container min-vh-100 pt-5 bg-black"}>
           <div className={"d-flex justify-content-center"}>
             <div className="border border-2 border-light w-50 py-3 px-2">
