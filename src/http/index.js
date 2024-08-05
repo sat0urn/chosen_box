@@ -1,11 +1,11 @@
 import axios from "axios";
 
 const $authHost = axios.create({
-  baseURL: 'https://chosen-box-server.onrender.com/api',
+  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
 })
 
 const $host = axios.create({
-  baseURL: 'https://chosen-box-server.onrender.com/api',
+  baseURL: import.meta.env.VITE_SERVER_BASE_URL,
 })
 
 const authInterceptor = config => {
