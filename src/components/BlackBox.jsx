@@ -2,18 +2,25 @@ import {getAllBlackMessages, removeMessage, saveMessage} from "../http/messageAP
 import {useContext, useEffect, useState} from "react";
 import {observer} from "mobx-react-lite";
 import {AuthContext} from "../context/index.js";
+import {Link} from "react-router-dom";
 
 const BlackBox = observer(() => {
   const {messages} = useContext(AuthContext)
   const [blackMessage, setBlackMessage] = useState('')
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [removeIsLoading, setRemoveIsLoading] = useState(false)
+
   useEffect(() => {
+    setIsLoading(true)
     getAllBlackMessages()
       .then(data => messages.setBlackMessages(data))
       .catch(err => console.error(err))
+      .finally(() => setIsLoading(false))
   }, [messages.isChanged]);
 
   const sendBlackMessage = async () => {
+    setIsLoading(true)
     try {
       let data = await saveMessage(blackMessage, false)
       messages.toggleChanged()
@@ -22,10 +29,13 @@ const BlackBox = observer(() => {
       if (e.response.status === 404) {
         alert(e.response.data)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const removeBlackMessage = async (id) => {
+    setRemoveIsLoading(true)
     try {
       let data = await removeMessage(id)
       messages.toggleChanged()
@@ -34,6 +44,8 @@ const BlackBox = observer(() => {
       if (e.response.status === 404) {
         alert(e.response.data)
       }
+    } finally {
+      setRemoveIsLoading(false)
     }
   }
 
@@ -48,7 +60,9 @@ const BlackBox = observer(() => {
                 <span className={"mx-4 fw-bold"}>
                   BLACK BOX
                 </span>
-                <i className="fa-solid fa-repeat"></i>
+                <Link to={'/white'} className={"text-black"}>
+                  <i className="fa-solid fa-repeat"></i>
+                </Link>
                 <span className={"mx-4 text-secondary opacity-75 fw-bold"}>
                   XOB KCALB
                 </span>
@@ -66,9 +80,19 @@ const BlackBox = observer(() => {
                 value={blackMessage}
                 onChange={(e) => setBlackMessage(e.target.value)}
               />
-              <button onClick={sendBlackMessage} className={"btn btn-outline-dark w-100 mt-2"}>
-                Save
-              </button>
+              {isLoading ?
+                <button
+                  type={"button"}
+                  className={"btn btn-outline-dark w-100 mt-2"}
+                  disabled
+                >
+                  <span className={"spinner-border spinner-border-sm"}></span>
+                </button>
+                :
+                <button onClick={sendBlackMessage} className={"btn btn-outline-dark w-100 mt-2"}>
+                  Save
+                </button>
+              }
             </div>
           </div>
           <div className={"d-flex flex-column justify-content-center mt-1"}>
@@ -81,9 +105,18 @@ const BlackBox = observer(() => {
                   <h6 className={"m-0"}>{(index + 1) + ". " + msg.message}</h6>
                 </div>
                 <div>
-                  <button onClick={() => removeBlackMessage(msg.id)} className={"btn btn-outline-danger"}>
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
+                  {removeIsLoading ?
+                    <button
+                      type={"button"}
+                      className={"btn border border-0"}
+                    >
+                        <span className={"spinner-border spinner-border-sm text-danger"}></span>
+                    </button>
+                    :
+                    <button onClick={() => removeBlackMessage(msg.id)} className={"btn btn-outline-danger"}>
+                      <i className="fa-regular fa-trash-can"></i>
+                    </button>
+                  }
                 </div>
               </div>
             ))}

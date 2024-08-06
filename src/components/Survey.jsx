@@ -10,9 +10,11 @@ const Survey = () => {
     sex: "Male",
     address: ""
   })
+  const [isLoading, setIsLoading] = useState(false)
 
   const saveSurveyData = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
     try {
       const data = await saveSurvey(surveyData)
       alert(data)
@@ -20,6 +22,8 @@ const Survey = () => {
       if (e.response.status === 302) {
         alert(e.response.data)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -143,9 +147,20 @@ const Survey = () => {
                 required
               />
             </div>
-            <button type={"submit"} className={"btn btn-outline-dark w-100 mt-3"}>
-              SUBMIT
-            </button>
+            {isLoading ?
+              <button
+                type="button"
+                className={"btn btn-outline-dark w-100 mt-3"}
+                disabled
+              >
+                <span className={"spinner-border spinner-border-sm border-2 me-2"} aria-hidden="true"></span>
+                <span role={"status"}>Loading...</span>
+              </button>
+              :
+              <button type={"submit"} className={"btn btn-outline-dark w-100 mt-3"}>
+                SUBMIT
+              </button>
+            }
           </form>
         </div>
       </div>

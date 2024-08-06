@@ -2,18 +2,25 @@ import {observer} from "mobx-react-lite";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../context/index.js";
 import {getAllWhiteMessages, removeMessage, saveMessage} from "../http/messageAPI.js";
+import {Link} from "react-router-dom";
 
 const WhiteBox = observer(() => {
   const {messages} = useContext(AuthContext)
   const [whiteMessage, setWhiteMessage] = useState('')
 
+  const [isLoading, setIsLoading] = useState(false)
+  const [removeIsLoading, setRemoveIsLoading] = useState(false)
+
   useEffect(() => {
+    setIsLoading(true)
     getAllWhiteMessages()
       .then(data => messages.setWhiteMessages(data))
       .catch(err => console.error(err))
+      .finally(() => setIsLoading(false))
   }, [messages.isChanged]);
 
   const sendWhiteMessage = async () => {
+    setIsLoading(true)
     try {
       let data = await saveMessage(whiteMessage, true)
       messages.toggleChanged()
@@ -22,10 +29,13 @@ const WhiteBox = observer(() => {
       if (e.response.status === 404) {
         alert(e.response.data)
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const removeWhiteMessage = async (id) => {
+    setRemoveIsLoading(true)
     try {
       let data = await removeMessage(id)
       messages.toggleChanged()
@@ -34,6 +44,8 @@ const WhiteBox = observer(() => {
       if (e.response.status === 404) {
         alert(e.response.data)
       }
+    } finally {
+      setRemoveIsLoading(false)
     }
   }
 
@@ -48,7 +60,9 @@ const WhiteBox = observer(() => {
                 <span className={"mx-4 fw-bold"}>
                   WHITE BOX
                 </span>
-                <i className="fa-solid fa-repeat"></i>
+                <Link to={'/black'} className={"text-white"}>
+                  <i className="fa-solid fa-repeat"></i>
+                </Link>
                 <span className={"mx-4 text-secondary opacity-75 fw-bold"}>
                   XOB ETIHW
                 </span>
@@ -66,9 +80,19 @@ const WhiteBox = observer(() => {
                 value={whiteMessage}
                 onChange={(e) => setWhiteMessage(e.target.value)}
               />
-              <button onClick={sendWhiteMessage} className={"btn btn-outline-light w-100 mt-2"}>
-                Save
-              </button>
+              {isLoading ?
+                <button
+                  type={"button"}
+                  className={"btn btn-outline-light w-100 mt-2"}
+                  disabled
+                >
+                  <span className={"spinner-border spinner-border-sm"}></span>
+                </button>
+                :
+                <button onClick={sendWhiteMessage} className={"btn btn-outline-light w-100 mt-2"}>
+                  Save
+                </button>
+              }
             </div>
           </div>
           <div className={"d-flex flex-column justify-content-center mt-1"}>
@@ -81,12 +105,21 @@ const WhiteBox = observer(() => {
                   <h6 className={"m-0 text-light"}>{(index + 1) + ". " + msg.message}</h6>
                 </div>
                 <div>
-                  <button
-                    onClick={() => removeWhiteMessage(msg.id)}
-                    className={"btn btn-outline-danger"}
-                  >
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
+                  {removeIsLoading ?
+                    <button
+                      type={"button"}
+                      className={"btn border border-0"}
+                    >
+                      <span className={"spinner-border spinner-border-sm text-danger"}></span>
+                    </button>
+                    :
+                    <button
+                      onClick={() => removeWhiteMessage(msg.id)}
+                      className={"btn btn-outline-danger"}
+                    >
+                      <i className="fa-regular fa-trash-can"></i>
+                    </button>
+                  }
                 </div>
               </div>
             ))}
