@@ -1,7 +1,16 @@
 import {Link} from "react-router-dom";
 import {Blogs} from "../data/blogs.js";
+import Pagination from "./commonParts/Pagination.jsx";
+import {useMemo, useState} from "react";
 
 const Blog = () => {
+  const maxBlogsPerPage = 5;
+  const pages = Math.ceil(Blogs.length / maxBlogsPerPage)
+  const [currentPage, setCurrentPage] = useState(0)
+
+  const getAllBlogs = useMemo(() => {
+    return Blogs.slice(currentPage * maxBlogsPerPage, (currentPage + 1) * maxBlogsPerPage);
+  }, [currentPage])
 
   return (
     <>
@@ -13,12 +22,12 @@ const Blog = () => {
         <path fill="#E9ECEF" fillOpacity="1" d="M0,288L720,128L1440,288L1440,0L720,0L0,0Z"></path>
       </svg>
       <div className={"bg-black bg-gradient mt-5"}>
-        <div className={"container min-vh-100"}>
-          <div className={"h-100 pt-5"}>
+        <div className={"container min-vh-100 pt-5"}>
+          <div className={"w-75 mx-auto"}>
             {/* Blog starts */}
-            {Blogs.map((blog, index) => (
+            {getAllBlogs.map((blog, index) => (
               <div key={index}>
-                <div className="row w-75 mx-auto mb-5 g-0">
+                <div className="row mb-5 g-0">
                   <div className="col-md-4">
                     <Link to={'/blog/' + blog.link}>
                       <img
@@ -61,14 +70,21 @@ const Blog = () => {
               </div>
             ))}
             {/* Blog ends */}
+            <div className={"d-flex"}>
+              <Pagination
+                pages={pages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+            </div>
           </div>
         </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-        >
-          <path fill="#E9ECEF" fillOpacity="1" d="M0,288L720,128L1440,288L1440,320L720,320L0,320Z"></path>
-        </svg>
+        {/*<svg*/}
+        {/*  xmlns="http://www.w3.org/2000/svg"*/}
+        {/*  viewBox="0 0 1440 320"*/}
+        {/*>*/}
+        {/*  <path fill="#E9ECEF" fillOpacity="1" d="M0,288L720,128L1440,288L1440,320L720,320L0,320Z"></path>*/}
+        {/*</svg>*/}
       </div>
     </>
   )
