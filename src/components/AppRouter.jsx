@@ -8,7 +8,6 @@ import WhiteBox from "./WhiteBox.jsx";
 import Blog from "./Blog.jsx";
 import Profile from "./Profile.jsx";
 import BlogPage from "./BlogPage.jsx";
-import Test from "./Test.jsx";
 
 const AppRouter = () => {
   return (
@@ -21,7 +20,6 @@ const AppRouter = () => {
         <Route path={'export'} element={<Export/>}/>
         <Route path={'blog'} element={<Blog/>}/>
         <Route path={'profile'} element={<Profile/>}/>
-        <Route path={'test'} element={<Test/>}/>
         {/* Blogs */}
         <Route path={'blog/:name'} element={<BlogPage/>}/>
       </Route>
